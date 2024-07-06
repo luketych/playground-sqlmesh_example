@@ -1,0 +1,8 @@
+2024-07-05 19:51:10,911 - MainThread - sqlmesh.core.config.connection - INFO - Creating new DuckDB adapter for data files: {'db.db'} (connection.py:299)
+2024-07-05 19:51:10,938 - MainThread - sqlmesh.core.renderer - WARNING - Column '"id"' could not be resolved for model '"db"."sqlmesh_example"."format_columns"', the column may not exist or is ambiguous (renderer.py:506)
+2024-07-05 19:51:11,166 - MainThread - sqlmesh.core.config.connection - INFO - Creating new DuckDB adapter for in-memory database (connection.py:301)
+2024-07-05 19:51:11,199 - MainThread - sqlmesh.core.config.connection - INFO - Using existing DuckDB adapter due to overlapping data file: db.db (connection.py:295)
+2024-07-05 19:51:11,216 - MainThread - sqlmesh.core.state_sync.engine_adapter - INFO - Applying migration <module 'sqlmesh.migrations.v0001_init' from '/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/migrations/v0001_init.py'> (engine_adapter.py:1007)
+2024-07-05 19:51:11,218 - MainThread - sqlmesh.core.engine_adapter.base - WARNING - Failed to create schema 'sqlmesh': IO Error: Could not set lock on file "/Users/luketych/Dev/_Playground/sqlmesh-example/db.db": Conflicting lock is held in /Applications/DBeaver.app/Contents/MacOS/dbeaver (PID 11426) by user luketych. See also https://duckdb.org/docs/connect/concurrency (base.py:1018)
+2024-07-05 19:51:11,220 - MainThread - sqlmesh.core.state_sync.engine_adapter - INFO - Starting migration rollback. (engine_adapter.py:953)
+2024-07-05 19:51:11,230 - MainThread - root - INFO - Shutting down the event dispatcher (dispatcher.py:159)

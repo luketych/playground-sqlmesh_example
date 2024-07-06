@@ -1,0 +1,63 @@
+2024-07-05 19:51:55,797 - MainThread - sqlmesh.core.config.connection - INFO - Creating new DuckDB adapter for data files: {'db.db'} (connection.py:299)
+2024-07-05 19:51:55,822 - MainThread - sqlmesh.core.renderer - WARNING - Column '"itemid"' could not be resolved for model '"db"."sqlmesh_example"."format_columns"', the column may not exist or is ambiguous (renderer.py:506)
+2024-07-05 19:51:55,999 - MainThread - sqlmesh.core.config.connection - INFO - Creating new DuckDB adapter for in-memory database (connection.py:301)
+2024-07-05 19:51:56,011 - MainThread - sqlmesh.core.config.connection - INFO - Using existing DuckDB adapter due to overlapping data file: db.db (connection.py:295)
+2024-07-05 19:51:58,299 - MainThread - sqlmesh.core.snapshot.evaluator - INFO - Listing data objects in schema db.sqlmesh__sqlmesh_example (evaluator.py:273)
+2024-07-05 19:51:58,300 - MainThread - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: SELECT CURRENT_CATALOG() (base.py:1916)
+2024-07-05 19:51:58,302 - MainThread - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: SELECT CURRENT_CATALOG() (base.py:1916)
+2024-07-05 19:51:58,305 - MainThread - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: SELECT table_name AS name, table_schema AS schema, CASE table_type WHEN 'BASE TABLE' THEN 'table' WHEN 'VIEW' THEN 'view' WHEN 'LOCAL TEMPORARY' THEN 'table' END AS type FROM information_schema.tables WHERE (table_catalog = 'db' AND table_schema = 'sqlmesh__sqlmesh_example') AND table_name IN ('sqlmesh_example__seed_model__1248844913', 'sqlmesh_example__format_columns__61259576', 'sqlmesh_example__seed_model__1248844913__temp', 'sqlmesh_example__full_model__3031530868', 'sqlmesh_example__incremental_model__3269816977__temp', 'sqlmesh_example__full_model__3031530868__temp', 'sqlmesh_example__incremental_model__3269816977', 'sqlmesh_example__format_columns__61259576__temp') (base.py:1916)
+2024-07-05 19:51:58,350 - MainThread - sqlmesh.core.snapshot.evaluator - INFO - Creating schema 'db.sqlmesh__sqlmesh_example' (evaluator.py:888)
+2024-07-05 19:51:58,350 - MainThread - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: CREATE SCHEMA IF NOT EXISTS "db"."sqlmesh__sqlmesh_example" (base.py:1916)
+2024-07-05 19:51:58,352 - MainThread - sqlmesh.core.renderer - WARNING - Column '"itemid"' could not be resolved for model '"db"."sqlmesh_example"."format_columns"', the column may not exist or is ambiguous (renderer.py:506)
+2024-07-05 19:51:58,354 - MainThread - sqlmesh.core.snapshot.evaluator - INFO - Creating table 'db.sqlmesh__sqlmesh_example.sqlmesh_example__format_columns__61259576__temp' (evaluator.py:1177)
+2024-07-05 19:51:58,354 - MainThread - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: CREATE TABLE IF NOT EXISTS "db"."sqlmesh__sqlmesh_example"."sqlmesh_example__format_columns__61259576__temp" ("id" INT) (base.py:1916)
+2024-07-05 19:51:58,355 - MainThread - sqlmesh.core.snapshot.evaluator - INFO - Dry running model 'sqlmesh_example.format_columns' (evaluator.py:1197)
+2024-07-05 19:51:58,355 - MainThread - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: SELECT CAST("itemid" AS INT) AS "id" FROM "db"."sqlmesh__sqlmesh_example"."sqlmesh_example__full_model__3031530868" AS "full_model" WHERE FALSE LIMIT 0 (base.py:1916)
+2024-07-05 19:51:58,361 - MainThread - sqlmesh.core.context - ERROR - Apply Failure: Traceback (most recent call last):
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/utils/concurrency.py", line 227, in sequential_apply_to_dag
+    fn(node)
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/utils/concurrency.py", line 165, in <lambda>
+    lambda s_id: fn(snapshots_by_id[s_id]),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/snapshot/evaluator.py", line 300, in <lambda>
+    lambda s: self._create_snapshot(
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/snapshot/evaluator.py", line 706, in _create_snapshot
+    evaluation_strategy.create(
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/snapshot/evaluator.py", line 1198, in create
+    self.adapter.fetchall(ctas_query)
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/engine_adapter/base.py", line 1767, in fetchall
+    self.execute(
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/engine_adapter/base.py", line 1913, in execute
+    self._execute(sql, **kwargs)
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/engine_adapter/base.py", line 1919, in _execute
+    self.cursor.execute(sql, **kwargs)
+duckdb.duckdb.BinderException: Binder Error: Referenced column "itemid" not found in FROM clause!
+Candidate bindings: "full_model.item_id"
+LINE 1: SELECT CAST("itemid" AS INT) AS "id" FROM "db"."sql...
+                    ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/context.py", line 1207, in apply
+    self._apply(plan, circuit_breaker)
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/context.py", line 1760, in _apply
+    self._scheduler.create_plan_evaluator(self).evaluate(plan, circuit_breaker=circuit_breaker)
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/plan/evaluator.py", line 109, in evaluate
+    self._push(plan, deployability_index_for_creation)
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/plan/evaluator.py", line 200, in _push
+    self.snapshot_evaluator.create(
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/core/snapshot/evaluator.py", line 298, in create
+    concurrent_apply_to_snapshots(
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/utils/concurrency.py", line 163, in concurrent_apply_to_snapshots
+    return concurrent_apply_to_dag(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/utils/concurrency.py", line 198, in concurrent_apply_to_dag
+    return sequential_apply_to_dag(dag, fn, raise_on_error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/luketych/Dev/_Playground/sqlmesh-example/.venv/lib/python3.12/site-packages/sqlmesh/utils/concurrency.py", line 230, in sequential_apply_to_dag
+    raise NodeExecutionFailedError(node) from ex
+sqlmesh.utils.concurrency.NodeExecutionFailedError: Execution failed for node SnapshotId<"db"."sqlmesh_example"."format_columns": 3291264248>
+ (context.py:1215)
+2024-07-05 19:51:58,364 - MainThread - root - INFO - Shutting down the event dispatcher (dispatcher.py:159)
